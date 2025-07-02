@@ -1,4 +1,4 @@
-name: Run Node.js App
+name: Node.js Bot Workflow
 
 on:
   push:
@@ -6,11 +6,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  run-bot:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
+    - name: Checkout repository
       uses: actions/checkout@v4
 
     - name: Set up Node.js
@@ -18,9 +18,13 @@ jobs:
       with:
         node-version: '20'
 
+    - name: Create login.txt from secret
+      run: |
+        mkdir -p replybot1
+        echo "${{ secrets.LOGIN_TEXT }}" > replybot1/login.txt
+
     - name: Install dependencies
       run: npm install
 
-    - name: Run the app
+    - name: Run bot
       run: npm start
-      
