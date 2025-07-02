@@ -1,0 +1,26 @@
+name: Twitter Reply Bot
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '*/90 * * * *' # Runs every 90 minutes to respect the 17 posts/24h limit
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 'lts/*'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run bot
+      run: node src/index.js
