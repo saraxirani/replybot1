@@ -1,0 +1,4 @@
+appKey=pGxrPzVUHYm4k75v1t03uu9nJ
+appSecret=xGB65arLcy3wyGGqZTZaJfJCrxiVEekYoIwkCtRCuTWM0qZy8T
+accessToken=1819439053940416512-LezniZ4ZSholynlxxWfKv7NSuABAMc
+accessSecret=G5YeVPclqgeElbaNZqmHeWZ2QC6AUuzSsfi2tGvWT1D14

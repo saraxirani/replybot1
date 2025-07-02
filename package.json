@@ -1,0 +1,12 @@
+{
+  "name": "twitter-bot",
+  "version": "1.0.0",
+  "description": "A Twitter bot that replies to trending posts.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "twitter-api-v2": "^1.12.0"
+  }
+}
