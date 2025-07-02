@@ -1,1 +1,41 @@
+name: Twitter Bot
 
+on:
+  workflow_dispatch: # Allows manual triggering
+  schedule:
+    # Runs every 15 minutes to respect the Twitter API search rate limit
+    - cron: '*/15 * * * *'
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Use a stable LTS version of Node.js
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run the Twitter bot script
+        env:
+          APP_KEY: ${{ secrets.APP_KEY }}
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_SECRET: ${{ secrets.ACCESS_SECRET }}
+          TEXT_CONTENT: ${{ secrets.TEXT_CONTENT }}
+        run: node index.js
+
+      - name: Commit replied tweets log
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add replied_tweets.log
+          # Only commit if there are changes
+          git diff --staged --quiet || git commit -m "Update replied tweets log"
+          git push
